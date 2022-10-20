@@ -8,7 +8,7 @@ import (
 type SocialMedia struct {
 	GormModel
 	Name           string `gorm:"not null" json:"name" form:"name" valid:"required~Your name is required"`
-	SocialMediaUrl string `gorm:"not null" json:"social_media_url" form:"social_media_url" valid:"required~Your social media is required"`
+	SocialMediaUrl string `gorm:"not null" json:"social_media_url" form:"social_media_url" valid:"required~Your social media is required, url~Url format not valid"`
 	UserID         uint
 	User		   *User
 }
