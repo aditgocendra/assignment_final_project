@@ -1,0 +1,815 @@
+definitions:
+  dto.CommentPhotoRes:
+    properties:
+      caption:
+        type: string
+      id:
+        type: integer
+      photoUrl:
+        type: string
+      title:
+        type: string
+      userID:
+        type: integer
+    type: object
+  dto.CommentReq:
+    properties:
+      message:
+        type: string
+      photo_id:
+        type: integer
+    type: object
+  dto.CommentRes:
+    properties:
+      createdAt:
+        type: string
+      id:
+        type: integer
+      message:
+        type: string
+      photoID:
+        type: integer
+      userID:
+        type: integer
+    type: object
+  dto.CommentUserRes:
+    properties:
+      email:
+        type: string
+      id:
+        type: integer
+      username:
+        type: string
+    type: object
+  dto.CreatePhotoRes:
+    properties:
+      caption:
+        type: string
+      createdAt:
+        type: string
+      id:
+        type: integer
+      photoUrl:
+        type: string
+      title:
+        type: string
+      userID:
+        type: integer
+    type: object
+  dto.CreateSocialMediaRes:
+    properties:
+      createdAt:
+        type: string
+      id:
+        type: integer
+      name:
+        type: string
+      socialMediaUrl:
+        type: string
+      userID:
+        type: integer
+    type: object
+  dto.ErrorMessage:
+    properties:
+      message:
+        type: string
+      typeError:
+        type: string
+    type: object
+  dto.GetCommentRes:
+    properties:
+      createdAt:
+        type: string
+      id:
+        type: integer
+      message:
+        type: string
+      photo:
+        $ref: '#/definitions/dto.CommentPhotoRes'
+      photoID:
+        type: integer
+      updatedAt:
+        type: string
+      user:
+        $ref: '#/definitions/dto.CommentUserRes'
+      userID:
+        type: integer
+    type: object
+  dto.GetPhotoRes:
+    properties:
+      caption:
+        type: string
+      createdAt:
+        type: string
+      id:
+        type: integer
+      photoUrl:
+        type: string
+      title:
+        type: string
+      updatedAt:
+        type: string
+      user:
+        $ref: '#/definitions/dto.PhotoUserRes'
+      userID:
+        type: integer
+    type: object
+  dto.PhotoReq:
+    properties:
+      caption:
+        type: string
+      photo_url:
+        type: string
+      title:
+        type: string
+    type: object
+  dto.PhotoUserRes:
+    properties:
+      email:
+        type: string
+      username:
+        type: string
+    type: object
+  dto.SocialMediaReq:
+    properties:
+      name:
+        type: string
+      social_media_url:
+        type: string
+    type: object
+  dto.SocialMediaUserRes:
+    properties:
+      id:
+        type: integer
+      username:
+        type: string
+    type: object
+  dto.SocialMedias:
+    properties:
+      createdAt:
+        type: string
+      id:
+        type: integer
+      name:
+        type: string
+      socialMediaUrl:
+        type: string
+      updatedAt:
+        type: string
+      user:
+        $ref: '#/definitions/dto.SocialMediaUserRes'
+      userID:
+        type: integer
+    type: object
+  dto.SuccessMessage:
+    properties:
+      message:
+        type: string
+    type: object
+  dto.UpdateCommentReq:
+    properties:
+      message:
+        type: string
+    type: object
+  dto.UpdatePhotoRes:
+    properties:
+      caption:
+        type: string
+      id:
+        type: integer
+      photoUrl:
+        type: string
+      title:
+        type: string
+      updatedAt:
+        type: string
+      userID:
+        type: integer
+    type: object
+  dto.UpdateSocialMediaRes:
+    properties:
+      id:
+        type: integer
+      name:
+        type: string
+      socialMediaUrl:
+        type: string
+      updatedAt:
+        type: string
+      userID:
+        type: integer
+    type: object
+  dto.UserCreateReq:
+    properties:
+      age:
+        type: integer
+      email:
+        type: string
+      password:
+        type: string
+      username:
+        type: string
+    type: object
+  dto.UserCreateRes:
+    properties:
+      age:
+        type: integer
+      email:
+        type: string
+      id:
+        type: integer
+      username:
+        type: string
+    type: object
+  dto.UserLoginReq:
+    properties:
+      email:
+        type: string
+      password:
+        type: string
+    type: object
+  dto.UserLoginRes:
+    properties:
+      token:
+        type: string
+    type: object
+  dto.UserUpdateReq:
+    properties:
+      email:
+        type: string
+      username:
+        type: string
+    type: object
+  dto.UserUpdateRes:
+    properties:
+      age:
+        type: integer
+      email:
+        type: string
+      id:
+        type: integer
+      updatedAt:
+        type: string
+      username:
+        type: string
+    type: object
+host: localhost:8080
+info:
+  contact:
+    email: gocendra123@gmail.com
+    name: Aditya Gocendra
+  description: This is a assignment for DTS-Hacktiv8 final project.
+  title: Final Project API
+  version: "1.0"
+paths:
+  /comments:
+    post:
+      consumes:
+      - application/json
+      description: 'Note : To create comment, you need to send the token that has
+        been obtained from the login response with the format Bearer <YOUR TOKEN>.'
+      parameters:
+      - description: create comment
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/dto.CommentReq'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/dto.CommentRes'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/dto.ErrorMessage'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/dto.ErrorMessage'
+      security:
+      - Bearer <JWT>: []
+      summary: Create Comment
+      tags:
+      - comment
+  /comments/:
+    get:
+      consumes:
+      - application/json
+      description: 'Note : To get comment, you need to send the token that has been
+        obtained from the login response with the format Bearer <YOUR TOKEN>.'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/dto.GetCommentRes'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/dto.ErrorMessage'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/dto.ErrorMessage'
+      security:
+      - Bearer <JWT>: []
+      summary: Get Comments
+      tags:
+      - comment
+  /comments/{commentid}:
+    delete:
+      consumes:
+      - application/json
+      description: 'Note : To delete comment, you need to send the token that has
+        been obtained from the login response with the format Bearer <YOUR TOKEN>.'
+      parameters:
+      - description: commentid
+        in: path
+        name: commentid
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/dto.SuccessMessage'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/dto.ErrorMessage'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/dto.ErrorMessage'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/dto.ErrorMessage'
+      security:
+      - Bearer <JWT>: []
+      summary: Delete Comment
+      tags:
+      - comment
+    put:
+      consumes:
+      - application/json
+      description: 'Note : To update comment, you need to send the token that has
+        been obtained from the login response with the format Bearer <YOUR TOKEN>.'
+      parameters:
+      - description: commentid
+        in: path
+        name: commentid
+        required: true
+        type: string
+      - description: udpate comment
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/dto.UpdateCommentReq'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/dto.UpdatePhotoRes'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/dto.ErrorMessage'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/dto.ErrorMessage'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/dto.ErrorMessage'
+      security:
+      - Bearer <JWT>: []
+      summary: Update Comment
+      tags:
+      - comment
+  /photos/:
+    get:
+      consumes:
+      - application/json
+      description: 'Note : To get photos, you need to send the token that has been
+        obtained from the login response with the format Bearer <YOUR TOKEN>.'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/dto.GetPhotoRes'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/dto.ErrorMessage'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/dto.ErrorMessage'
+      security:
+      - Bearer <JWT>: []
+      summary: Get Photo
+      tags:
+      - photo
+    post:
+      consumes:
+      - application/json
+      description: 'Note : To create photo, you need to send the token that has been
+        obtained from the login response with the format Bearer <YOUR TOKEN>.'
+      parameters:
+      - description: create user
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/dto.PhotoReq'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/dto.CreatePhotoRes'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/dto.ErrorMessage'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/dto.ErrorMessage'
+      security:
+      - Bearer <JWT>: []
+      summary: Create Photo
+      tags:
+      - photo
+  /photos/{photoid}:
+    delete:
+      consumes:
+      - application/json
+      description: 'Note : To delete photos, you need to send the token that has been
+        obtained from the login response with the format Bearer <YOUR TOKEN>.'
+      parameters:
+      - description: photoid
+        in: path
+        name: photoid
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/dto.SuccessMessage'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/dto.ErrorMessage'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/dto.ErrorMessage'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/dto.ErrorMessage'
+      security:
+      - Bearer <JWT>: []
+      summary: Delete Photo
+      tags:
+      - photo
+    put:
+      consumes:
+      - application/json
+      description: 'Note : To update photos, you need to send the token that has been
+        obtained from the login response with the format Bearer <YOUR TOKEN>.'
+      parameters:
+      - description: photoid
+        in: path
+        name: photoid
+        required: true
+        type: string
+      - description: update photo
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/dto.PhotoReq'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/dto.UpdatePhotoRes'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/dto.ErrorMessage'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/dto.ErrorMessage'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/dto.ErrorMessage'
+      security:
+      - Bearer <JWT>: []
+      summary: Update Photo
+      tags:
+      - photo
+  /socialmedias/:
+    get:
+      consumes:
+      - application/json
+      description: 'Note : To get social media, you need to send the token that has
+        been obtained from the login response with the format Bearer <YOUR TOKEN>.'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/dto.SocialMedias'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/dto.ErrorMessage'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/dto.ErrorMessage'
+      security:
+      - Bearer <JWT>: []
+      summary: Get Social Media
+      tags:
+      - social_media
+    post:
+      consumes:
+      - application/json
+      description: 'Note : To create social media, you need to send the token that
+        has been obtained from the login response with the format Bearer <YOUR TOKEN>.'
+      parameters:
+      - description: create social media
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/dto.SocialMediaReq'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/dto.CreateSocialMediaRes'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/dto.ErrorMessage'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/dto.ErrorMessage'
+      security:
+      - Bearer <JWT>: []
+      summary: Create Social Media
+      tags:
+      - social_media
+  /socialmedias/{socialMediaId}:
+    delete:
+      consumes:
+      - application/json
+      description: 'Note : To delete social media, you need to send the token that
+        has been obtained from the login response with the format Bearer <YOUR TOKEN>.'
+      parameters:
+      - description: socialMediaId
+        in: path
+        name: socialMediaId
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/dto.SuccessMessage'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/dto.ErrorMessage'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/dto.ErrorMessage'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/dto.ErrorMessage'
+      security:
+      - Bearer <JWT>: []
+      summary: Delete Social Media
+      tags:
+      - social_media
+    put:
+      consumes:
+      - application/json
+      description: 'Note : To update social media, you need to send the token that
+        has been obtained from the login response with the format Bearer <YOUR TOKEN>.'
+      parameters:
+      - description: socialMediaId
+        in: path
+        name: socialMediaId
+        required: true
+        type: string
+      - description: update social media
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/dto.SocialMediaReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/dto.UpdateSocialMediaRes'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/dto.ErrorMessage'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/dto.ErrorMessage'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/dto.ErrorMessage'
+      security:
+      - Bearer <JWT>: []
+      summary: Update Social Media
+      tags:
+      - social_media
+  /users/:
+    delete:
+      consumes:
+      - application/json
+      description: 'Note : To delete your account data, you need to send the token
+        that has been obtained from the login response with the format Bearer <YOUR
+        TOKEN>.'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/dto.SuccessMessage'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/dto.ErrorMessage'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/dto.ErrorMessage'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/dto.ErrorMessage'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/dto.ErrorMessage'
+      security:
+      - Bearer <JWT>: []
+      summary: Delete User
+      tags:
+      - user
+  /users/{id}:
+    put:
+      consumes:
+      - application/json
+      description: 'Note : To change your account data, you need to send the token
+        that has been obtained from the login response with the format Bearer <YOUR
+        TOKEN>.'
+      parameters:
+      - description: id
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: create user
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/dto.UserUpdateReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/dto.UserUpdateRes'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/dto.ErrorMessage'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/dto.ErrorMessage'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/dto.ErrorMessage'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/dto.ErrorMessage'
+      security:
+      - Bearer <JWT>: []
+      summary: Update User
+      tags:
+      - user
+  /users/login:
+    post:
+      consumes:
+      - application/json
+      description: Login your account after register
+      parameters:
+      - description: create user
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/dto.UserLoginReq'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/dto.UserLoginRes'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/dto.ErrorMessage'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/dto.ErrorMessage'
+      summary: Login User
+      tags:
+      - user
+  /users/register:
+    post:
+      consumes:
+      - application/json
+      description: User registration, your password is stored securely because it
+        has gone through the encryption process
+      parameters:
+      - description: create user
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/dto.UserCreateReq'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/dto.UserCreateRes'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/dto.ErrorMessage'
+      summary: Register User
+      tags:
+      - user
+securityDefinitions:
+  Bearer <JWT>:
+    in: header
+    name: Authorization
+    type: apiKey
+swagger: "2.0"
