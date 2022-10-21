@@ -75,7 +75,7 @@ func CreateSocialMedia(ctx *gin.Context) {
 // @Tags        social_media
 // @Accept      json
 // @Produce     json
-// @Success     201 {object} dto.SocialMedias
+// @Success     201 {object} dto.GetSocialMediaRes
 // @Failure     400 {object} dto.ErrorMessage
 // @Failure     401 {object} dto.ErrorMessage
 // @Router      /socialmedias/ [get]
@@ -84,10 +84,34 @@ func GetSocialMedia(ctx *gin.Context) {
 	db := database.GetDB()
 
 	SocialMedias := []models.SocialMedia{}
+	
 
 	err := db.Debug().Preload("User", func(db *gorm.DB) *gorm.DB {
 		return db.Select("ID", "Username")
 	  }).Find(&SocialMedias).Error
+	
+	GetSocialMediaRes := []dto.GetSocialMediaRes{}
+
+	for i, v := range SocialMedias {
+		Photo := models.Photo{}
+		Photo.UserID = v.UserID 
+
+		err = db.Debug().Last(&Photo).Error
+		
+		sM := dto.GetSocialMediaRes{
+			ID: int(v.ID),
+			Name: v.Name,
+			SocialMediaUrl: v.SocialMediaUrl,
+			UserID: int(v.UserID),
+			CreatedAt: v.CreatedAt,
+			UpdatedAt: v.UpdatedAt,
+		}
+		sM.User.ID = int(SocialMedias[i].User.ID)
+		sM.User.Username = SocialMedias[i].User.Username
+		sM.User.ProfileImageUrl = Photo.PhotoUrl
+
+		GetSocialMediaRes = append(GetSocialMediaRes, sM)
+	}
 
 	if err != nil {
 		ctx.JSON(http.StatusBadRequest, gin.H{
@@ -98,7 +122,7 @@ func GetSocialMedia(ctx *gin.Context) {
 	}
 
 	ctx.JSON(http.StatusOK, gin.H{
-		"social_medias" : SocialMedias,
+		"social_medias" : GetSocialMediaRes,
 	})
 }
 

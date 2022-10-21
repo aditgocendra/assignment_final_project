@@ -23,7 +23,7 @@ type UpdateSocialMediaRes struct {
 	UpdatedAt      *time.Time
 }
 
-type SocialMedias struct {
+type GetSocialMediaRes struct {
 	ID			   int
 	Name           string
 	SocialMediaUrl string
@@ -36,4 +36,5 @@ type SocialMedias struct {
 type SocialMediaUserRes struct {
 	ID int
 	Username string
+	ProfileImageUrl string
 }
