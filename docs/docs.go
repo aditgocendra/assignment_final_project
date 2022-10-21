@@ -455,7 +455,7 @@ const docTemplate = `{
                     "201": {
                         "description": "Created",
                         "schema": {
-                            "$ref": "#/definitions/dto.SocialMedias"
+                            "$ref": "#/definitions/dto.GetSocialMediaRes"
                         }
                     },
                     "400": {
@@ -1026,6 +1026,32 @@ const docTemplate = `{
                 }
             }
         },
+        "dto.GetSocialMediaRes": {
+            "type": "object",
+            "properties": {
+                "createdAt": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "socialMediaUrl": {
+                    "type": "string"
+                },
+                "updatedAt": {
+                    "type": "string"
+                },
+                "user": {
+                    "$ref": "#/definitions/dto.SocialMediaUserRes"
+                },
+                "userID": {
+                    "type": "integer"
+                }
+            }
+        },
         "dto.PhotoReq": {
             "type": "object",
             "properties": {
@@ -1068,34 +1094,11 @@ const docTemplate = `{
                 "id": {
                     "type": "integer"
                 },
+                "profileImageUrl": {
+                    "type": "string"
+                },
                 "username": {
                     "type": "string"
-                }
-            }
-        },
-        "dto.SocialMedias": {
-            "type": "object",
-            "properties": {
-                "createdAt": {
-                    "type": "string"
-                },
-                "id": {
-                    "type": "integer"
-                },
-                "name": {
-                    "type": "string"
-                },
-                "socialMediaUrl": {
-                    "type": "string"
-                },
-                "updatedAt": {
-                    "type": "string"
-                },
-                "user": {
-                    "$ref": "#/definitions/dto.SocialMediaUserRes"
-                },
-                "userID": {
-                    "type": "integer"
                 }
             }
         },

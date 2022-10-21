@@ -114,6 +114,23 @@ definitions:
       userID:
         type: integer
     type: object
+  dto.GetSocialMediaRes:
+    properties:
+      createdAt:
+        type: string
+      id:
+        type: integer
+      name:
+        type: string
+      socialMediaUrl:
+        type: string
+      updatedAt:
+        type: string
+      user:
+        $ref: '#/definitions/dto.SocialMediaUserRes'
+      userID:
+        type: integer
+    type: object
   dto.PhotoReq:
     properties:
       caption:
@@ -141,25 +158,10 @@ definitions:
     properties:
       id:
         type: integer
+      profileImageUrl:
+        type: string
       username:
         type: string
-    type: object
-  dto.SocialMedias:
-    properties:
-      createdAt:
-        type: string
-      id:
-        type: integer
-      name:
-        type: string
-      socialMediaUrl:
-        type: string
-      updatedAt:
-        type: string
-      user:
-        $ref: '#/definitions/dto.SocialMediaUserRes'
-      userID:
-        type: integer
     type: object
   dto.SuccessMessage:
     properties:
@@ -545,7 +547,7 @@ paths:
         "201":
           description: Created
           schema:
-            $ref: '#/definitions/dto.SocialMedias'
+            $ref: '#/definitions/dto.GetSocialMediaRes'
         "400":
           description: Bad Request
           schema:
