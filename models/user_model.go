@@ -10,7 +10,7 @@ import (
 
 type User struct {
 	GormModel
-	Username 	string 			`gorm:"not null" json:"username,omitempty" form:"username" valid:"required~Your username is required"`
+	Username 	string 			`gorm:"not null;uniqueIndex" json:"username,omitempty" form:"username" valid:"required~Your username is required"`
 	Email    	string 			`gorm:"not null;uniqueIndex" json:"email,omitempty" form:"email" valid:"required~Your email is required, email~Invalid email format"`
 	Password 	string			`gorm:"not null" json:"password,omitempty" form:"password" valid:"required~Your password is required, minstringlength(6)~Password has to have a minimum length of 6 character"`
 	Age      	int				`gorm:"not null" json:"age,omitempty" form:"age" valid:"required~Your age is required, range(8|100)~Age minimum 8"`
