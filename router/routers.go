@@ -28,8 +28,8 @@ func StartApp() *gin.Engine {
 		photoRouter.Use(middleware.Authentication())
 		photoRouter.POST("/", controllers.CreatePhoto)
 		photoRouter.GET("/", controllers.GetPhotos)
-		photoRouter.PUT("/:photoid", middleware.PhotoAuthorization() ,controllers.UpdatePhoto)
-		photoRouter.DELETE("/:photoid", middleware.PhotoAuthorization() ,controllers.DeletePhoto)
+		photoRouter.PUT("/:photoid",  middleware.AuthorizationData("photoid", "photos") ,controllers.UpdatePhoto)
+		photoRouter.DELETE("/:photoid", middleware.AuthorizationData("photoid", "photos") ,controllers.DeletePhoto)
 	}
 
 	commentRouter := r.Group("/comments")
@@ -37,8 +37,8 @@ func StartApp() *gin.Engine {
 		commentRouter.Use(middleware.Authentication())
 		commentRouter.POST("/", controllers.CreateComment)
 		commentRouter.GET("/", controllers.GetComment)
-		commentRouter.PUT("/:commentid", middleware.CommentAuthorization(), controllers.UpdateComment)
-		commentRouter.DELETE("/:commentid", middleware.CommentAuthorization(), controllers.DeleteComment)
+		commentRouter.PUT("/:commentid", middleware.AuthorizationData("commentid", "comments"), controllers.UpdateComment)
+		commentRouter.DELETE("/:commentid", middleware.AuthorizationData("commentid", "comments"), controllers.DeleteComment)
 	}
 
 	socialMediaRouter := r.Group("/socialmedias")
@@ -46,8 +46,8 @@ func StartApp() *gin.Engine {
 		socialMediaRouter.Use(middleware.Authentication())
 		socialMediaRouter.POST("/", controllers.CreateSocialMedia)
 		socialMediaRouter.GET("/", controllers.GetSocialMedia)
-		socialMediaRouter.PUT("/:socialMediaId", middleware.SocialMediaAuthorization(), controllers.UpdateSocialMedia)
-		socialMediaRouter.DELETE("/:socialMediaId", middleware.SocialMediaAuthorization(), controllers.DeleteSocialMedia)
+		socialMediaRouter.PUT("/:socialMediaId", middleware.AuthorizationData("socialMediaId", "social_media"), controllers.UpdateSocialMedia)
+		socialMediaRouter.DELETE("/:socialMediaId", middleware.AuthorizationData("socialMediaId", "social_media"), controllers.DeleteSocialMedia)
 	}
 
 	return r
