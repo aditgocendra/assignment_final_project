@@ -54,7 +54,7 @@ func CreatePhoto(ctx *gin.Context) {
 	if err != nil {
 		ctx.JSON(http.StatusBadRequest, gin.H{
 			"error":   "Bad Request",
-			"message": err.Error(),
+			"message": "Request create photo fail",
 		})
 		return
 	}
@@ -112,7 +112,7 @@ func GetPhotos(ctx *gin.Context) {
 	if err != nil {
 		ctx.JSON(http.StatusBadRequest, gin.H{
 			"error":   "Bad Request",
-			"message": err.Error(),
+			"message": "Request get photo fail",
 		})
 		return
 	}
@@ -146,7 +146,7 @@ func UpdatePhoto(ctx *gin.Context)  {
 	if err != nil {
 		ctx.JSON(http.StatusBadRequest, gin.H{
 			"err" : "Bad Request",
-			"message" : err.Error(),
+			"message": "Request fail, param not valid",
 		})
 		return
 	}	
@@ -167,7 +167,7 @@ func UpdatePhoto(ctx *gin.Context)  {
 	if err != nil {
 		ctx.JSON(http.StatusBadRequest, gin.H{
 			"err" : "Bad Request",
-			"message" : err.Error(),	
+			"message" : "Request update photo fail",	
 		})
 		return
 	}
@@ -223,7 +223,7 @@ func DeletePhoto(ctx *gin.Context)  {
 	if deletedPhoto.Error != nil {
 		ctx.JSON(http.StatusBadRequest, gin.H{
 			"err" : "Bad Request",
-			"message" : deletedPhoto.Error.Error(),
+			"message" : "Request delete photo fail",
 		})
 		return
 	}

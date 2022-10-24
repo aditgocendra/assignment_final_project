@@ -52,7 +52,7 @@ func CreateComment(ctx *gin.Context) {
 	if err != nil {
 		ctx.JSON(http.StatusBadRequest, gin.H{
 			"error":   "Bad Request",
-			"message": err.Error(),
+			"message": "Request create comment fail",
 		})
 		return
 	}
@@ -94,7 +94,7 @@ func GetComment(ctx *gin.Context) {
 	if err != nil {
 		ctx.JSON(http.StatusBadRequest, gin.H{
 			"error":   "Bad Request",
-			"message": err.Error(),
+			"message": "Request get comment fail",
 		})
 		return
 	}
@@ -152,7 +152,7 @@ func UpdateComment(ctx *gin.Context)  {
 	if err != nil {
 		ctx.JSON(http.StatusBadRequest, gin.H{
 			"err" : "Bad Request",
-			"message" : err.Error(),
+			"message" : "Request fail, param not valid",
 		})
 		return
 	}	
@@ -180,7 +180,7 @@ func UpdateComment(ctx *gin.Context)  {
 	if err != nil {
 		ctx.JSON(http.StatusBadRequest, gin.H{
 			"err" : "Bad Request",
-			"message" : err.Error(),	
+			"message" : "Request update comment fail",	
 		})
 		return
 	}
@@ -196,7 +196,7 @@ func UpdateComment(ctx *gin.Context)  {
 	if err != nil {
 		ctx.JSON(http.StatusBadRequest, gin.H{
 			"err" : "Bad Request",
-			"message" : err.Error(),	
+			"message" : "Request fail",	
 		})
 		return
 	}

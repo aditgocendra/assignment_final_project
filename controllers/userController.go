@@ -48,7 +48,7 @@ func Register(ctx *gin.Context) {
 	if err != nil {
 		errMessage := dto.ErrorMessage{
 			TypeError: "Bad Request",
-			Message:  err.Error(),
+			Message:  "Invalid format request",
 		}
 		ctx.JSON(http.StatusBadRequest, errMessage)
 		return
@@ -157,7 +157,7 @@ func UpdateUser(ctx *gin.Context)  {
 	if err != nil {
 		ctx.JSON(http.StatusBadRequest, gin.H{
 			"err" : "Bad Request",
-			"message" : err.Error(),
+			"message" : "Request fail, param type not valid",
 		})
 		return
 	}	
@@ -193,7 +193,7 @@ func UpdateUser(ctx *gin.Context)  {
 	if err != nil {
 		ctx.JSON(http.StatusBadRequest, gin.H{
 			"err" : "Bad Request",
-			"message" : err.Error(),
+			"message" : "Invalid format request",
 		})
 		return
 	}
@@ -256,7 +256,7 @@ func DeleteUser(ctx *gin.Context)  {
 	if deletedUser.Error != nil {
 		ctx.JSON(http.StatusBadRequest, gin.H{
 			"err" : "Bad Request",
-			"message" : deletedUser.Error.Error(),
+			"message" : "Request delete fail",
 		})
 		return
 	}

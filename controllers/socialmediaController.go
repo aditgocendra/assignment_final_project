@@ -52,7 +52,7 @@ func CreateSocialMedia(ctx *gin.Context) {
 	if err != nil {
 		ctx.JSON(http.StatusBadRequest, gin.H{
 			"error":   "Bad Request",
-			"message": err.Error(),
+			"message": "Request create social media fail",
 		})
 		return
 	}
@@ -116,7 +116,7 @@ func GetSocialMedia(ctx *gin.Context) {
 	if err != nil {
 		ctx.JSON(http.StatusBadRequest, gin.H{
 			"error":   "Bad Request",
-			"message": err.Error(),
+			"message": "Request get social media fail",
 		})
 		return
 	}
@@ -152,7 +152,7 @@ func UpdateSocialMedia(ctx *gin.Context)  {
 	if err != nil {
 		ctx.JSON(http.StatusBadRequest, gin.H{
 			"err" : "Bad Request",
-			"message" : err.Error(),
+			"message": "Request fail, param type not valid",
 		})
 		return
 	}	
@@ -178,7 +178,7 @@ func UpdateSocialMedia(ctx *gin.Context)  {
 	if err != nil {
 		ctx.JSON(http.StatusBadRequest, gin.H{
 			"err" : "Bad Request",
-			"message" : err.Error(),	
+			"message": "Request update social media fail",	
 		})
 		return
 	}
